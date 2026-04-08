@@ -285,7 +285,185 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
   }
 
 }
-</style>
+.cart-fab{
+      position: fixed; right: 18px; bottom: 18px;
+      z-index: 3000;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 900;
+      cursor: pointer;
+      background: rgba(63,45,34,0.92);
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+      display:flex; align-items:center; gap: 10px;
+    }
+    .cart-badge{
+      background:#fff;
+      color: var(--scent-brown);
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 2px 10px;
+      min-width: 32px;
+      text-align:center;
+    }
+
+    .cart-drawer{
+      position: fixed; top: 0; right: -420px;
+      width: 420px; max-width: 92vw; height: 100vh;
+      background: #fff; z-index: 4000;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
+      transition: right 0.25s ease;
+      display:flex; flex-direction:column;
+    }
+    .cart-drawer.open{ right: 0; }
+
+    .cart-header{
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .cart-title{ font-weight: 900; letter-spacing:1px; color: var(--scent-brown); }
+    .cart-close{
+      border:none; background: transparent;
+      font-size: 22px; font-weight: 900;
+      cursor:pointer; color: var(--scent-brown);
+    }
+
+    .cart-body{ padding: 12px 18px; overflow:auto; flex:1; }
+
+    .cart-item{
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 12px 0;
+      display:flex; gap: 12px;
+    }
+    .cart-item strong{ color: var(--scent-brown); }
+    .cart-item-meta{ flex:1; }
+
+    .cart-item-actions{
+      display:flex; gap: 8px;
+      align-items:center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn{
+      border: 1px solid rgba(0,0,0,0.12);
+      background:#fff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      cursor:pointer;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+    .mini-btn:hover{ background: rgba(63,45,34,0.06); border-color: rgba(63,45,34,0.25); }
+
+    .cart-footer{
+      padding: 14px 18px 18px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .cart-row{
+      display:flex; justify-content:space-between;
+      align-items:center;
+      margin-bottom: 10px;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+
+    .checkout-btn{
+      width:100%;
+      border:none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(63,45,34,0.92);
+      color:#fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: 0.2s ease;
+    }
+    .checkout-btn:hover{ transform: translateY(-1px); background: rgba(63,45,34,1); }
+
+    /* Checkout modal */
+    .checkout-modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 4600;
+      display: none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .checkout-modal.open{ display:flex; }
+    .checkout-sheet{
+      width: 620px;
+      max-width: 96vw;
+      background:#fff;
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.20);
+    }
+    .checkout-head{
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .checkout-title{
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--scent-brown);
+    }
+    .checkout-close{
+      border:none;
+      background: transparent;
+      font-size: 22px;
+      font-weight: 900;
+      cursor:pointer;
+      color: var(--scent-brown);
+    }
+    .checkout-body{ padding: 16px 18px 18px; }
+    .field{
+      margin-top: 12px;
+    }
+    .field label{
+      display:block;
+      font-weight: 900;
+      color: var(--scent-brown);
+      margin-bottom: 8px;
+    }
+    .field input, .field textarea, .field select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.14);
+      outline: none;
+      font-size: 14px;
+    }
+    .field textarea{ min-height: 88px; resize: vertical; }
+    .hint{ font-size: 12px; opacity: 0.8; margin-top: 6px; }
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px){ .two-col{ grid-template-columns: 1fr; } }
+
+    .checkout-pay{
+      margin-top: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(63,45,34,0.92);
+      color: #fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: 0.2s ease;
+    }
+    .checkout-pay:hover{ transform: translateY(-1px); background: rgba(63,45,34,1); }
+  </style>
 </head>
 
 <body>
