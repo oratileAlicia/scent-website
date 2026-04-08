@@ -417,6 +417,115 @@
       transition: 0.2s ease;
     }
     .checkout-pay:hover{ transform: translateY(-1px); background: rgba(63,45,34,1); }
+
+
+
+    .hero-cta-wrap{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:80px;
+}
+
+@media (max-width: 600px){
+  .hero-cta-wrap{
+    bottom: 50px;
+  }
+}
+
+/* Button Resize */
+.hero-shop{
+  padding:18px 56px;
+  font-size:20px;
+}
+
+@media (max-width: 600px){
+  .hero-shop{
+    padding:14px 32px;
+    font-size:16px;
+  }
+}
+
+/* Product Title Resize */
+.pd-title{
+  font-size:48px;
+}
+
+@media (max-width: 600px){
+  .pd-title{
+    font-size:28px;
+  }
+}
+
+/* Product Modal Fix */
+@media (max-width: 600px){
+  .product-info{
+    padding:18px;
+  }
+
+  .product-media{
+    min-height:300px;
+  }
+}
+
+/* About Section Stack */
+@media (max-width: 768px){
+  #about .w3-row-padding{
+    display:flex;
+    flex-direction:column;
+  }
+
+  #about img{
+    margin-bottom:20px;
+  }
+}
+
+/* Catalog spacing */
+@media (max-width: 600px){
+  .catalog-grid{
+    gap:14px;
+    padding:0 10px;
+  }
+}
+
+/* Cart Drawer Full Width */
+@media (max-width: 600px){
+  .cart-drawer{
+    width:100%;
+  }
+}
+
+/* Navbar text smaller */
+@media (max-width: 600px){
+  #myNavbar a{
+    font-size:14px;
+  }
+}
+
+/* Checkout Modal */
+@media (max-width: 600px){
+  .checkout-sheet{
+    width:100%;
+    border-radius:14px;
+  }
+}
+
+/* General mobile spacing */
+@media (max-width: 600px){
+  .w3-container{
+    padding:60px 16px !important;
+  }
+
+  h2{
+    font-size:22px !important;
+  }
+
+  .w3-large{
+    font-size:15px !important;
+  }
+}
+
+
   </style>
 </head>
 
