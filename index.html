@@ -64,8 +64,6 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
   font-weight:900;
   border-radius:999px;
   text-decoration:none;
-  display:inline-block;
-  transition: 0.2s ease;
 }
 .hero-shop:hover{ background: rgba(63,45,34,0.78); }
 
@@ -142,18 +140,44 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
   font-size:48px;
   color:var(--scent-brown);
 }
+
 .pd-price{
   margin-top:10px;
   font-weight:900;
 }
-.pd-desc{ margin-top:14px; }
 
+.pd-desc{
+  margin-top:14px;
+}
+
+/* ROW */
 .pd-row{
   margin-top:16px;
   display:flex;
   gap:10px;
+  align-items:center;
 }
 
+/* QTY */
+.pd-qty{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.1);
+}
+.pd-qtybtn{
+  border:none;
+  background:none;
+  font-size:16px;
+  cursor:pointer;
+}
+.pd-qtynum{
+  font-weight:900;
+}
+
+/* BUTTON */
 .pd-add{
   flex:1;
   border:none;
@@ -165,24 +189,22 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
 }
 
 /* =========================
-   📱 MOBILE FIXES
+   📱 MOBILE (CLEAN FIX)
 ========================= */
 @media (max-width:600px){
 
-  /* NAV */
   #myNavbar a{
     font-size:13px;
     padding:12px;
   }
 
-  /* HERO */
   .hero-cta-wrap{ bottom:60px; }
   .hero-shop{
     padding:12px 28px;
     font-size:15px;
   }
 
-  /* GRID (3 columns) */
+  /* GRID 3 */
   .catalog-grid{
     grid-template-columns: repeat(3, 1fr);
     gap:10px;
@@ -201,40 +223,59 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
 
   .product-sheet{
     width:100%;
-    height:85vh; /* smaller */
+    height:80vh;
     border-radius:18px 18px 0 0;
     display:flex;
     flex-direction:column;
   }
 
   .product-media{
-    min-height:180px;
-    max-height:200px;
+    min-height:150px;
+    max-height:170px;
   }
 
   .product-info{
     flex:1;
     overflow-y:auto;
-    padding:14px;
+    padding:12px;
   }
 
-  .pd-title{ font-size:20px; }
-  .pd-price{ font-size:14px; }
-  .pd-desc{ font-size:12px; line-height:1.5; }
+  .pd-title{ font-size:18px; }
+  .pd-price{ font-size:13px; }
+  .pd-desc{
+    font-size:11.5px;
+    line-height:1.4;
+  }
 
   .pd-row{
+    gap:6px;
+    margin-top:8px;
     position:sticky;
     bottom:0;
     background:#fbfaf8;
-    padding-top:8px;
+    padding-top:6px;
   }
 
-  .pd-add{
-    padding:10px;
+  .pd-qty{
+    padding:4px 6px;
+  }
+
+  .pd-qtybtn{
     font-size:13px;
   }
 
-  /* INPUT FIELDS */
+  .pd-qtynum{
+    font-size:12px;
+  }
+
+  .pd-add{
+    padding:8px 12px;
+    font-size:12px;
+    border-radius:10px;
+    font-weight:700;
+  }
+
+  /* INPUTS */
   .field input,
   .field textarea,
   .field select{
