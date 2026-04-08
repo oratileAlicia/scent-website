@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Scent | Crafted for calm living</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- Paystack -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+    body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
+
+    :root{
+      --scent-brown:#3f2d22;
+      --scent-cream:#f7f2ea;
+      --scent-soft:#efe6dc;
+    }
+
+    .bgimg-1{
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-image: url("home.png");
+      min-height:100vh;
+    }
+    .overlay{ background: rgba(255,255,255,0.06); min-height:100%; }
+
+    #myNavbar{
+      background: transparent;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      padding: 10px 0;
+    }
+    #myNavbar a{
+      color: var(--scent-brown);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .w3-bar .w3-button {padding: 16px;}
+
+    .section-title{ color: var(--scent-brown); letter-spacing: 1px; }
+
+    .hero-cta-wrap{
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:120px; z-index: 5;
+    }
+    .hero-shop{
+      background: rgba(63,45,34,0.50);
+      color:white;
+      padding:18px 56px;
+      font-size:20px;
+      font-weight:900;
+      border-radius:999px;
+      text-decoration:none;
+      display:inline-block;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+    }
+    .hero-shop:hover{ background: rgba(63,45,34,0.78); transform: translateY(-2px); }
+
+    .catalog-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 1100px){ .catalog-grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px){ .catalog-grid{ grid-template-columns: 1fr; } }
+
+    .cat-card{
+      background:#fff;
+      border-radius:18px;
+      overflow:hidden;
+      cursor:pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+    .cat-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+    }
+    .cat-img{ width:100%; height:260px; object-fit:cover; display:block; background:#f4efe8; }
+    .cat-body{ padding: 14px 14px 16px; text-align:center; }
+    .cat-name{ font-weight: 900; letter-spacing: 1px; color: var(--scent-brown); }
+    .cat-price{ margin-top: 6px; font-weight: 900; opacity: 0.9; }
+
+    .badge{
+      position:absolute;
+      top: 12px; left: 12px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #6b6b6b;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.06);
+    }
+
+    .muted{opacity:0.85;}
+
+    .product-modal{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 4500;
+      display: none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .product-modal.open{ display:flex; }
+
+    .product-sheet{
+      width: 1100px;
+      max-width: 96vw;
+      background:#fff;
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .product-close{
+      position:absolute;
+      top: 10px; right: 12px;
+      border:none;
+      background: rgba(255,255,255,0.85);
+      border-radius:999px;
+      width:42px; height:42px;
+      font-size:22px;
+      cursor:pointer;
+      font-weight:900;
+      color: var(--scent-brown);
+    }
+
+    .product-layout{ display:grid; grid-template-columns: 1.2fr 1fr; }
+    @media (max-width: 900px){ .product-layout{ grid-template-columns: 1fr; } }
+
+    .product-media{
+      background:#f4efe8;
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .product-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      max-height: 720px;
+    }
+
+    .product-info{ padding: 26px; background:#fbfaf8; }
+
+    .pd-title{
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--scent-brown);
+      line-height: 1.05;
+    }
+
+    .pd-price{
+      margin-top: 12px;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+
+    .pd-desc{ margin-top: 18px; font-size: 14px; line-height: 1.7; opacity: 0.88; }
+    .pd-list{ margin-top: 14px; font-size: 13px; opacity: 0.9; }
+    .pd-list ul{ margin: 10px 0 0 18px; }
+
+    .pd-block{ margin-top: 18px; }
+    .pd-label{ font-weight: 900; color: var(--scent-brown); margin-bottom: 10px; }
+
+    .pd-options{ display:grid; gap:10px; }
+
+    .pd-opt{
+      border: 1px solid rgba(63,45,34,0.25);
+      background: transparent;
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--scent-brown);
+      transition: 0.2s ease;
+      text-align:left;
+    }
+    .pd-opt:hover{ border-color: rgba(63,45,34,0.45); background: rgba(63,45,34,0.06); }
+    .pd-opt.active{ background: rgba(63,45,34,0.10); border-color: rgba(63,45,34,0.55); }
+
+    .pd-row{ margin-top: 18px; display:flex; gap: 12px; align-items:center; }
+
+    .pd-qty{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      background:#fff;
+      border: 1px solid rgba(0,0,0,0.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .pd-qtybtn{
+      border:none;
+      background: transparent;
+      font-size: 18px;
+      font-weight: 900;
+      cursor:pointer;
+      color: var(--scent-brown);
+    }
+
+    .pd-qtynum{
+      width: 22px;
+      text-align:center;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+
+    .pd-add{
+      flex: 1;
+      border:none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(63,45,34,0.85);
+      color:#fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: 0.2s ease;
+    }
+    .pd-add:hover{ background: rgba(63,45,34,1); transform: translateY(-1px); }
+    .pd-add[disabled]{ opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    /* Cart */
+    .cart-fab{
+      position: fixed; right: 18px; bottom: 18px;
+      z-index: 3000;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 900;
+      cursor: pointer;
+      background: rgba(63,45,34,0.92);
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+      display:flex; align-items:center; gap: 10px;
+    }
+    .cart-badge{
+      background:#fff;
+      color: var(--scent-brown);
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 2px 10px;
+      min-width: 32px;
+      text-align:center;
+    }
+
+    .cart-drawer{
+      position: fixed; top: 0; right: -420px;
+      width: 420px; max-width: 92vw; height: 100vh;
+      background: #fff; z-index: 4000;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
+      transition: right 0.25s ease;
+      display:flex; flex-direction:column;
+    }
+    .cart-drawer.open{ right: 0; }
+
+    .cart-header{
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .cart-title{ font-weight: 900; letter-spacing:1px; color: var(--scent-brown); }
+    .cart-close{
+      border:none; background: transparent;
+      font-size: 22px; font-weight: 900;
+      cursor:pointer; color: var(--scent-brown);
+    }
+
+    .cart-body{ padding: 12px 18px; overflow:auto; flex:1; }
+
+    .cart-item{
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 12px 0;
+      display:flex; gap: 12px;
+    }
+    .cart-item strong{ color: var(--scent-brown); }
+    .cart-item-meta{ flex:1; }
+
+    .cart-item-actions{
+      display:flex; gap: 8px;
+      align-items:center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn{
+      border: 1px solid rgba(0,0,0,0.12);
+      background:#fff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      cursor:pointer;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+    .mini-btn:hover{ background: rgba(63,45,34,0.06); border-color: rgba(63,45,34,0.25); }
+
+    .cart-footer{
+      padding: 14px 18px 18px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .cart-row{
+      display:flex; justify-content:space-between;
+      align-items:center;
+      margin-bottom: 10px;
+      font-weight: 900;
+      color: var(--scent-brown);
+    }
+
+    .checkout-btn{
+      width:100%;
+      border:none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(63,45,34,0.92);
+      color:#fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: 0.2s ease;
+    }
+    .checkout-btn:hover{ transform: translateY(-1px); background: rgba(63,45,34,1); }
+
+    /* Checkout modal */
+    .checkout-modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 4600;
+      display: none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .checkout-modal.open{ display:flex; }
+    .checkout-sheet{
+      width: 620px;
+      max-width: 96vw;
+      background:#fff;
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.20);
+    }
+    .checkout-head{
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .checkout-title{
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--scent-brown);
+    }
+    .checkout-close{
+      border:none;
+      background: transparent;
+      font-size: 22px;
+      font-weight: 900;
+      cursor:pointer;
+      color: var(--scent-brown);
+    }
+    .checkout-body{ padding: 16px 18px 18px; }
+    .field{
+      margin-top: 12px;
+    }
+    .field label{
+      display:block;
+      font-weight: 900;
+      color: var(--scent-brown);
+      margin-bottom: 8px;
+    }
+    .field input, .field textarea, .field select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.14);
+      outline: none;
+      font-size: 14px;
+    }
+    .field textarea{ min-height: 88px; resize: vertical; }
+    .hint{ font-size: 12px; opacity: 0.8; margin-top: 6px; }
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px){ .two-col{ grid-template-columns: 1fr; } }
+
+    .checkout-pay{
+      margin-top: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(63,45,34,0.92);
+      color: #fff;
+      font-weight: 900;
+      cursor:pointer;
+      transition: 0.2s ease;
+    }
+    .checkout-pay:hover{ transform: translateY(-1px); background: rgba(63,45,34,1); }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide" style="font-weight:900;">SCENT</a>
+
+    <div class="w3-right w3-hide-small">
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#products" class="w3-bar-item w3-button">Catalog</a>
+      <a href="#howto" class="w3-bar-item w3-button">How to use</a>
+      <a href="#delivery" class="w3-bar-item w3-button">Delivery</a>
+      <a href="#contact" class="w3-bar-item w3-button">Order</a>
+    </div>
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar (mobile) -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+     style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
+  <a href="#products" onclick="w3_close()" class="w3-bar-item w3-button">Catalog</a>
+  <a href="#howto" onclick="w3_close()" class="w3-bar-item w3-button">How to use</a>
+  <a href="#delivery" onclick="w3_close()" class="w3-bar-item w3-button">Delivery</a>
+  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Order</a>
+</nav>
+
+<!-- Hero -->
+<header class="bgimg-1 w3-display-container" id="home">
+  <div class="overlay w3-display-container">
+    <div class="hero-cta-wrap">
+      <a class="hero-shop" href="#products">SHOP NOW</a>
+    </div>
+  </div>
+</header>
+
+<!-- About -->
+<div class="w3-container" style="padding:120px 16px; background:var(--scent-cream);" id="about">
+  <div class="w3-content" style="max-width:1100px;">
+    <div class="w3-row-padding">
+      <div class="w3-half w3-margin-bottom">
+        <img src="founder.jpg" alt="Founder of Scent" style="width:100%; border-radius:18px; object-fit:cover;">
+      </div>
+      <div class="w3-half w3-margin-bottom" style="display:flex; align-items:center;">
+        <div>
+          <h2 class="section-title"><b>ABOUT SCENT</b></h2>
+          <p class="w3-large" style="margin-top:20px;">Scent began with me simply wanting home to feel softer</p>
+          <p>
+            What started as a personal ritual of lighting candles and creating calm evenings has grown into a brand built on warmth, 
+            intention, and quiet luxury. Each diffuser and hand-poured candle is crafted in small batches, 
+            designed to gently shift the atmosphere of a room from busy to peaceful, from ordinary to comforting.
+          </p>
+         
+          <p> It is softness. It is stillness. It is the subtle feeling of walking into a space that feels safe, 
+            feminine, and beautifully cared for.</p>
+          <p style="margin-top:20px; font-style:italic; color:var(--scent-brown);">
+            Because comfort is a form of luxury.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Catalogue -->
+<div class="w3-container" style="padding:96px 16px" id="products">
+  <h2 class="w3-center section-title"><b>CATALOG</b></h2>
+  <p class="w3-center w3-large">Tap a product to view details.</p>
+
+  <div class="w3-content" style="max-width:1200px; margin-top:48px;">
+    <div class="catalog-grid" id="catalogGrid"></div>
+  </div>
+</div>
+
+<!-- Care Guide -->
+<div class="w3-container w3-light-grey" style="padding:96px 16px" id="howto">
+  <h2 class="w3-center section-title"><b>CARE GUIDE</b></h2>
+  <p class="w3-center w3-large">How to get the best experience from your diffuser and candle.</p>
+
+  <div class="w3-row-padding" style="margin-top:40px; max-width:1100px; margin-left:auto; margin-right:auto;">
+    <div class="w3-half w3-margin-bottom">
+      <div class="w3-card w3-white" style="border-radius:16px;">
+        <div class="w3-container" style="padding:24px">
+          <h3 style="color:var(--scent-brown);"><b>Reed Diffuser Care</b></h3>
+          <ul class="w3-ul">
+            <li>Insert all reeds and allow them to absorb the fragrance.</li>
+            <li>Flip reeds after 24 hours for stronger scent throw.</li>
+            <li>Flip once a week to refresh the aroma.</li>
+            <li>Avoid direct sunlight and strong airflow.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-half w3-margin-bottom">
+      <div class="w3-card w3-white" style="border-radius:16px;">
+        <div class="w3-container" style="padding:24px">
+          <h3 style="color:var(--scent-brown);"><b>Candle Care</b></h3>
+          <ul class="w3-ul">
+            <li>First burn: 2–3 hours to prevent tunneling.</li>
+            <li>Trim wick to 5mm before each burn.</li>
+            <li>Do not burn longer than 4 hours at a time.</li>
+            <li>Always place on a heat-resistant surface.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delivery -->
+<div class="w3-container" style="padding:96px 16px" id="delivery">
+  <h2 class="w3-center section-title"><b>DELIVERY</b></h2>
+  <p class="w3-center w3-large">Simple and reliable delivery options.</p>
+
+  <div class="w3-content" style="max-width:800px; margin-top:40px;">
+    <div class="w3-panel w3-white" style="border-radius:16px; padding:30px;">
+      <ul class="w3-ul">
+        <li><b>Collection</b><br>Free collection available (location shared after order confirmation).</li>
+        <li><b>PEP Collection – R60</b><br>Recommended for high-risk or remote areas.</li>
+        <li><b>Door-to-Door Delivery – R155</b><br>Delivered directly to your address.</li>
+      </ul>
+      <hr style="margin:30px 0;">
+      <p style="color:var(--scent-brown); font-weight:700;">Orders are confirmed via WhatsApp after payment.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<div class="w3-container w3-center w3-dark-grey" style="padding:96px 16px" id="contact">
+  <h2><b>READY TO ORDER?</b></h2>
+  <p class="w3-large">Pay via Paystack, then WhatsApp us to confirm your delivery details.</p>
+
+  <a class="w3-button" style="background:rgba(63,45,34,0.92); color:white; border-radius:999px;"
+     href="https://wa.me/27694031255?text=Hi%20Scent%20%F0%9F%A4%8E%20I%27ve%20placed%20an%20order%20and%20need%20help%20with%20my%20delivery%20details."
+     target="_blank">
+    <i class="fa fa-whatsapp"></i> WhatsApp Scent
+  </a>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-sheet">
+    <button class="product-close" onclick="closeProduct()">×</button>
+
+    <div class="product-layout">
+      <div class="product-media">
+        <img id="pdImage" src="" alt="Product image" />
+      </div>
+
+      <div class="product-info">
+        <div class="pd-title" id="pdName">Product</div>
+        <div class="pd-price" id="pdPrice">R0</div>
+        <div class="pd-desc" id="pdDesc"></div>
+        <div class="pd-list" id="pdBullets"></div>
+
+        <div class="pd-block" id="pdScentBlock" style="display:none;">
+          <div class="pd-label">Scent</div>
+          <div class="pd-options" id="pdScents"></div>
+        </div>
+
+        <div class="pd-row">
+          <div class="pd-qty">
+            <button class="pd-qtybtn" onclick="pdQty(-1)">−</button>
+            <div class="pd-qtynum" id="pdQtyNum">1</div>
+            <button class="pd-qtybtn" onclick="pdQty(1)">+</button>
+          </div>
+
+          <button class="pd-add" id="pdAddBtn" onclick="addProductToCart()">Add to cart</button>
+        </div>
+
+        <p class="muted" style="margin-top:12px;" id="pdStockText"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+  <div class="checkout-sheet">
+    <div class="checkout-head">
+      <div class="checkout-title">Checkout</div>
+      <button class="checkout-close" onclick="closeCheckout()">×</button>
+    </div>
+
+    <div class="checkout-body">
+      <div class="two-col">
+        <div class="field">
+          <label for="custName">Full name</label>
+          <input id="custName" placeholder="e.g. Thato Mokoena" />
+        </div>
+        <div class="field">
+          <label for="custEmail">Email</label>
+          <input id="custEmail" type="email" placeholder="e.g. you@email.com" />
+          <div class="hint">Paystack needs an email for payment.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="deliveryMethod">Delivery method</label>
+        <select id="deliveryMethod" onchange="onDeliveryChange()">
+          <option value="">Select delivery method</option>
+          <option value="COLLECTION">Collection (Free)</option>
+          <option value="PEP">PEP Collection (R60)</option>
+          <option value="DOOR">Door-to-door delivery (R155)</option>
+        </select>
+      </div>
+
+      <div class="field" id="pepField" style="display:none;">
+        <label for="pepCode">PEP store code</label>
+        <input id="pepCode" placeholder="Enter PEP store code" />
+        <div class="hint">Please enter the PEP store code for delivery.</div>
+      </div>
+
+      <div class="field" id="doorField" style="display:none;">
+        <label for="doorAddress">Delivery address</label>
+        <textarea id="doorAddress" placeholder="Street address, suburb, city, postal code"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="orderNote">Order note (optional)</label>
+        <textarea id="orderNote" placeholder="Anything we should know? e.g. gift note, preferred scent, etc."></textarea>
+      </div>
+
+      <button class="checkout-pay" onclick="confirmAndPay()">
+        Pay with Paystack
+      </button>
+
+      <p class="hint" style="margin-top:10px;">
+        Orders are confirmed via WhatsApp after payment.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CART BUTTON -->
+<button class="cart-fab" onclick="openCart()" aria-label="Open cart">
+  <i class="fa fa-shopping-bag"></i>
+  Cart
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-header">
+    <div class="cart-title">YOUR CART</div>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+
+  <div class="cart-body" id="cartBody"></div>
+
+  <div class="cart-footer">
+    <div class="cart-row">
+      <span>Total</span>
+      <span id="cartTotal">R0</span>
+    </div>
+
+    <!-- CHANGE: open checkout modal instead of paying immediately -->
+    <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+
+    <p class="muted" style="margin-top:10px; font-size:12px;">
+      Stock reduces after a successful payment.
+    </p>
+  </div>
+</div>
+
+<script>
+  // =========================
+  // SETUP
+  // =========================
+  const PAYSTACK_PUBLIC_KEY = "PAYSTACK_PUBLIC_KEY_HERE"; // <-- PUT YOUR KEY HERE
+  const WHATSAPP_NUMBER = "27694031255";
+
+  // Delivery fees
+  const DELIVERY_FEES = {
+    COLLECTION: 0,
+    PEP: 60,
+    DOOR: 155
+  };
+
+  // =========================
+  // INVENTORY (EDIT STOCK HERE)
+  // stock: 0 shows SOLD OUT. We do NOT show stock numbers publicly.
+  // =========================
+  const PRODUCTS = [
+    {
+      id: "AURA",
+      name: "AURA",
+      title: "Aura Reed Diffuser",
+      price: 269,
+      image: "Aura.png",
+      stock: 6,
+      desc: "AURA is effortless atmosphere quietly scents your space over time with a clean, calm presence.",
+      bullets: ["Size: 100ml", "Mood: Minimal, clean, modern"],
+      scents: ["Sweet Truffle","Vanilla Buttercream" ]
+    },
+    {
+      id: "TAHLIA",
+      name: "TAHLIA",
+      title: "Tahlia Reed Diffuser",
+      price: 269,
+      image: "Tahlia.png",
+      stock: 5,
+      desc: "TAHLIA is warm & nurturing richer, softer and made for cozy evenings and comforting spaces.",
+      bullets: ["Size: 100ml", "Mood: Warm & nurturing"],
+      scents: ["Summer Pomegranate"]
+    },
+    {
+      id: "LUNA",
+      name: "LUNA",
+      title: "Luna Soy Wax Candle",
+      price: 369,
+      image: "Luna.png",
+      stock: 3,
+      desc: "A soft glow with a warm presence — made for slow nights and calm mornings.",
+      bullets: ["Size: 320ml", "Soy wax candle", "Clean burn", "Luxury feel" ,],
+      scents: ["Choose scent after payment (WhatsApp)"]
+    },
+    {
+      id: "NOVA",
+      name: "NOVA",
+      title: "Nova Candle",
+      price: 199,
+      image: "Nova.png",
+      stock: 6,
+      desc: "A clean everyday candle — simple, smooth, and made to elevate your space instantly.",
+      bullets: ["Size: 250ml","Everyday candle", "Minimal & clean"],
+      scents: ["Choose scent after payment (WhatsApp)"]
+    },
+    {
+      id: "PHASE",
+      name: "PHASE",
+      title: "Phase Candle Set",
+      price: 299,
+      image: "Phase.png",
+      stock: 10,
+      desc: "A set designed for mood-setting — perfect for gifting or resetting your space.",
+      bullets: ["Size: 80ml each","Great for gifting", "Strong atmosphere"],
+      scents: ["Choose scent after payment (WhatsApp)"]
+    },
+    {
+      id: "HOMEDUO",
+      name: "THE HOME DUO",
+      title: "The Home Duo",
+      price: 429,
+      image: "Combo1.png",
+      stock: 4,
+      desc: "A diffuser + a candle paired to make your home feel soft, warm, and intentionally luxurious.",
+      bullets: ["Includes: 1 diffuser + 1 candle"," Candle Size: 250ml", " Diffuser Size: 100ml","Perfect for gifting"],
+      scents: ["Choose scent after payment (WhatsApp)"]
+    }
+  ];
+
+  // =========================
+  // HELPERS
+  // =========================
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+  function formatPrice(p){
+    return (Math.round(p * 100) / 100).toFixed(p % 1 === 0 ? 0 : 2);
+  }
+
+  // =========================
+  // CATALOGUE
+  // =========================
+  function renderCatalogue(){
+    const grid = document.getElementById("catalogGrid");
+    grid.innerHTML = PRODUCTS.map(p => {
+      const sold = p.stock <= 0;
+      const badge = sold ? `<div class="badge">Sold out</div>` : "";
+      return `
+        <div class="cat-card" onclick="openProduct('${p.id}')">
+          ${badge}
+          <img class="cat-img" src="${p.image}" alt="${escapeHtml(p.name)}" />
+          <div class="cat-body">
+            <div class="cat-name">${escapeHtml(p.name)}</div>
+            <div class="cat-price">R ${formatPrice(p.price)}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // =========================
+  // PRODUCT MODAL
+  // =========================
+  let activeProduct = null;
+  let activeScent = "";
+  let activeQty = 1;
+
+  function openProduct(id){
+    activeProduct = PRODUCTS.find(p => p.id === id);
+    if(!activeProduct) return;
+
+    activeQty = 1;
+    activeScent = "";
+    document.getElementById("pdQtyNum").textContent = "1";
+
+    document.getElementById("pdImage").src = activeProduct.image;
+    document.getElementById("pdName").textContent = activeProduct.name;
+    document.getElementById("pdPrice").textContent = `R ${formatPrice(activeProduct.price)}`;
+    document.getElementById("pdDesc").textContent = activeProduct.desc;
+
+    const list = activeProduct.bullets || [];
+    document.getElementById("pdBullets").innerHTML = list.length
+      ? `<ul>${list.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
+      : "";
+
+    const scentBlock = document.getElementById("pdScentBlock");
+    const scentsEl = document.getElementById("pdScents");
+    const scents = activeProduct.scents || [];
+    const selectableScents = scents.length && !String(scents[0]).toLowerCase().includes("choose scent after");
+
+    if(selectableScents){
+      scentBlock.style.display = "block";
+      scentsEl.innerHTML = scents.map(s => `
+        <button class="pd-opt" onclick="selectScent('${escapeHtml(s)}', event)">${escapeHtml(s)}</button>
+      `).join("");
+    } else {
+      scentBlock.style.display = "none";
+      scentsEl.innerHTML = "";
+    }
+
+    const stockText = document.getElementById("pdStockText");
+    const addBtn = document.getElementById("pdAddBtn");
+
+    if(activeProduct.stock <= 0){
+      stockText.textContent = "Sold out";
+      addBtn.disabled = true;
+      addBtn.textContent = "Sold out";
+    } else {
+      stockText.textContent = "";
+      addBtn.disabled = false;
+      addBtn.textContent = "Add to cart";
+    }
+
+    document.getElementById("productModal").classList.add("open");
+  }
+
+  function closeProduct(){ document.getElementById("productModal").classList.remove("open"); }
+
+  function selectScent(scent, e){
+    activeScent = scent;
+    document.querySelectorAll("#pdScents .pd-opt").forEach(b => b.classList.remove("active"));
+    e.target.classList.add("active");
+  }
+
+  function pdQty(delta){
+    activeQty = Math.max(1, activeQty + delta);
+    document.getElementById("pdQtyNum").textContent = String(activeQty);
+  }
+
+  // =========================
+  // CART
+  // =========================
+  let cart = JSON.parse(localStorage.getItem("scent_cart") || "[]");
+  function saveCart(){ localStorage.setItem("scent_cart", JSON.stringify(cart)); }
+  function cartCount(){ return cart.reduce((sum, item) => sum + item.qty, 0); }
+  function cartSubtotal(){ return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+
+  // NEW: delivery info
+  let checkoutDeliveryMethod = "";
+  let checkoutPepCode = "";
+  let checkoutDoorAddress = "";
+  let checkoutCustomerName = "";
+  let checkoutCustomerEmail = "";
+  let checkoutOrderNote = "";
+
+  function cartTotalWithDelivery(){
+    const fee = DELIVERY_FEES[checkoutDeliveryMethod] ?? 0;
+    return cartSubtotal() + fee;
+  }
+
+  function setCartBadge(){ document.getElementById("cartCount").textContent = cartCount(); }
+
+  function addToCart(id, title, price, qty){
+    const existing = cart.find(i => i.id === id);
+    if(existing) existing.qty += qty;
+    else cart.push({ id, title, price, qty });
+    saveCart();
+    renderCart();
+    setCartBadge();
+  }
+
+  function removeFromCart(id){
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCart();
+    setCartBadge();
+  }
+
+  function changeQty(id, delta){
+    const item = cart.find(i => i.id === id);
+    if(!item) return;
+    item.qty = Math.max(1, item.qty + delta);
+    saveCart();
+    renderCart();
+    setCartBadge();
+  }
+
+  function renderCart(){
+    const body = document.getElementById("cartBody");
+    if(cart.length === 0){
+      body.innerHTML = `<p class="muted">Your cart is empty.</p>`;
+      document.getElementById("cartTotal").textContent = "R0";
+      return;
+    }
+
+    body.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-meta">
+          <strong>${escapeHtml(item.title)}</strong><br>
+          <span class="muted">R ${formatPrice(item.price)} each</span>
+          <div class="cart-item-actions">
+            <button class="mini-btn" onclick="changeQty('${item.id}', -1)">−</button>
+            <span><b>${item.qty}</b></span>
+            <button class="mini-btn" onclick="changeQty('${item.id}', 1)">+</button>
+            <button class="mini-btn" onclick="removeFromCart('${item.id}')">Remove</button>
+          </div>
+        </div>
+        <div style="font-weight:900; color:var(--scent-brown);">
+          R ${formatPrice(item.price * item.qty)}
+        </div>
+      </div>
+    `).join("");
+
+    document.getElementById("cartTotal").textContent = `R ${formatPrice(cartSubtotal())}`;
+  }
+
+  function openCart(){ document.getElementById("cartDrawer").classList.add("open"); }
+  function closeCart(){ document.getElementById("cartDrawer").classList.remove("open"); }
+
+  function addProductToCart(){
+    if(!activeProduct) return;
+
+    if(activeProduct.stock <= 0){
+      alert("This item is sold out 🤎");
+      return;
+    }
+    if(activeQty > activeProduct.stock){
+      alert("Not enough stock for this item.");
+      return;
+    }
+
+    const scents = activeProduct.scents || [];
+    const needsChoice = scents.length && !String(scents[0]).toLowerCase().includes("choose scent after");
+    if(needsChoice && !activeScent){
+      alert("Please select a scent first 🤎");
+      return;
+    }
+
+    const scentText = activeScent ? ` — ${activeScent}` : "";
+    const cartId = activeProduct.id + (activeScent ? "_" + activeScent.replace(/\s+/g,"_") : "");
+    const title = `${activeProduct.title}${scentText}`;
+
+    addToCart(cartId, title, activeProduct.price, activeQty);
+    closeProduct();
+    openCart();
+  }
+
+  // =========================
+  // CHECKOUT MODAL (NEW)
+  // =========================
+  function openCheckout(){
+    if(cart.length === 0){
+      alert("Your cart is empty.");
+      return;
+    }
+    document.getElementById("checkoutModal").classList.add("open");
+  }
+  function closeCheckout(){
+    document.getElementById("checkoutModal").classList.remove("open");
+  }
+
+  function onDeliveryChange(){
+    const method = document.getElementById("deliveryMethod").value;
+    document.getElementById("pepField").style.display = (method === "PEP") ? "block" : "none";
+    document.getElementById("doorField").style.display = (method === "DOOR") ? "block" : "none";
+  }
+
+  // =========================
+  // PAYSTACK + STOCK REDUCTION
+  // =========================
+  function confirmAndPay(){
+    if(cart.length === 0){
+      alert("Your cart is empty.");
+      return;
+    }
+    if(!PAYSTACK_PUBLIC_KEY || PAYSTACK_PUBLIC_KEY === "PAYSTACK_PUBLIC_KEY_HERE"){
+      alert("Please insert your Paystack public key first.");
+      return;
+    }
+
+    checkoutCustomerName = document.getElementById("custName").value.trim();
+    checkoutCustomerEmail = document.getElementById("custEmail").value.trim();
+    checkoutDeliveryMethod = document.getElementById("deliveryMethod").value;
+    checkoutPepCode = document.getElementById("pepCode").value.trim();
+    checkoutDoorAddress = document.getElementById("doorAddress").value.trim();
+    checkoutOrderNote = document.getElementById("orderNote").value.trim();
+
+    if(!checkoutCustomerName){
+      alert("Please enter your full name.");
+      return;
+    }
+    if(!checkoutCustomerEmail || !checkoutCustomerEmail.includes("@")){
+      alert("Please enter a valid email.");
+      return;
+    }
+    if(!checkoutDeliveryMethod){
+      alert("Please select a delivery method.");
+      return;
+    }
+    if(checkoutDeliveryMethod === "PEP" && !checkoutPepCode){
+      alert("Please enter the PEP store code.");
+      return;
+    }
+    if(checkoutDeliveryMethod === "DOOR" && !checkoutDoorAddress){
+      alert("Please enter your delivery address.");
+      return;
+    }
+
+    // Stock validation
+    for(const item of cart){
+      const baseId = item.id.split("_")[0];
+      const prod = PRODUCTS.find(p => p.id === baseId);
+      if(!prod || prod.stock <= 0){
+        alert(`Sorry, ${baseId} is sold out.`);
+        return;
+      }
+      if(item.qty > prod.stock){
+        alert(`Not enough stock for ${baseId}.`);
+        return;
+      }
+    }
+
+    const reference = "SCENT_" + Date.now();
+    const total = cartTotalWithDelivery();
+    const amountInCents = Math.round(total * 100);
+    const deliveryFee = DELIVERY_FEES[checkoutDeliveryMethod] ?? 0;
+
+    const handler = PaystackPop.setup({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: checkoutCustomerEmail,
+      amount: amountInCents,
+      currency: "ZAR",
+      ref: reference,
+      metadata: {
+        custom_fields: [
+          { display_name: "Customer Name", variable_name: "customer_name", value: checkoutCustomerName },
+          { display_name: "Delivery Method", variable_name: "delivery_method", value: checkoutDeliveryMethod },
+          { display_name: "PEP Code", variable_name: "pep_code", value: checkoutPepCode || "N/A" },
+          { display_name: "Address", variable_name: "address", value: checkoutDoorAddress || "N/A" }
+        ]
+      },
+      callback: function(response){
+
+        // Reduce stock after payment success
+        cart.forEach(item => {
+          const baseId = item.id.split("_")[0];
+          const prod = PRODUCTS.find(p => p.id === baseId);
+          if(prod) prod.stock = Math.max(0, prod.stock - item.qty);
+        });
+
+        // WhatsApp confirmation message
+        const methodLabel =
+          checkoutDeliveryMethod === "COLLECTION" ? "Collection (Free)" :
+          checkoutDeliveryMethod === "PEP" ? "PEP Collection (R60)" :
+          "Door-to-Door (R155)";
+
+        const deliveryText =
+          checkoutDeliveryMethod === "PEP" ? `PEP Code: ${checkoutPepCode}` :
+          checkoutDeliveryMethod === "DOOR" ? `Address: ${checkoutDoorAddress}` :
+          "Collection (location to be shared)";
+
+        const msg =
+`Hi Scent 🤎 I just paid via Paystack.
+
+Name: ${checkoutCustomerName}
+Email: ${checkoutCustomerEmail}
+
+Reference: ${reference}
+Paystack Ref: ${response.reference}
+
+Order:
+${cart.map(i => `- ${i.title} x${i.qty}`).join("\n")}
+
+Delivery:
+${methodLabel}
+${deliveryText}
+
+Delivery fee: R ${formatPrice(deliveryFee)}
+Total paid: R ${formatPrice(total)}
+
+Note: ${checkoutOrderNote || "None"}
+
+Please confirm my order.`;
+
+        window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+
+        // clear cart + close modals
+        cart = [];
+        saveCart();
+        renderCart();
+        setCartBadge();
+        closeCart();
+        closeCheckout();
+        renderCatalogue();
+
+        alert("Payment successful 🤎 We opened WhatsApp to confirm your order.");
+      }
+    });
+
+    handler.openIframe();
+  }
+
+  // =========================
+  // MODAL CLICKS
+  // =========================
+  document.getElementById("productModal").addEventListener("click", (e) => {
+    if(e.target && e.target.id === "productModal") closeProduct();
+  });
+  document.getElementById("checkoutModal").addEventListener("click", (e) => {
+    if(e.target && e.target.id === "checkoutModal") closeCheckout();
+  });
+
+  // =========================
+  // INIT
+  // =========================
+  renderCatalogue();
+  renderCart();
+  setCartBadge();
+
+  // Mobile nav
+  var mySidebar = document.getElementById("mySidebar");
+  function w3_open() { mySidebar.style.display = (mySidebar.style.display === 'block') ? 'none' : 'block'; }
+  function w3_close() { mySidebar.style.display = "none"; }
+</script>
+
+</body>
+</html>
