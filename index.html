@@ -1100,10 +1100,10 @@ body, html {height: 100%; line-height: 1.8; scroll-behavior:smooth;}
       alert("Your cart is empty.");
       return;
     }
-    if(!PAYSTACK_PUBLIC_KEY || PAYSTACK_PUBLIC_KEY === "pk_live_2ecd5c0832513ecd8462e97589bf9a8b93818f0d"){
-      alert("Please insert your Paystack public key first.");
-      return;
-    }
+  if (!PAYSTACK_PUBLIC_KEY || PAYSTACK_PUBLIC_KEY === "pk_live_2ecd5c0832513ecd8462e97589bf9a8b93818f0d") {
+  alert("Please insert your Paystack public key first.");
+  return;
+}
 
     checkoutCustomerName = document.getElementById("custName").value.trim();
     checkoutCustomerEmail = document.getElementById("custEmail").value.trim();
